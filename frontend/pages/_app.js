@@ -1,4 +1,3 @@
-import GoogleAdsense from "@/components/GoogleAdsense";
 import "@/styles/globals.css";
 import { DM_Sans } from "next/font/google";
 
@@ -10,12 +9,8 @@ const dmSansFont = DM_Sans({
 
 export default function App({ Component, pageProps }) {
   return (
-    <>
-      <main className={`bg-[#F9F9F9] text-[#222] ${dmSansFont.className}`}>
-        <Component {...pageProps} />
-      </main>
-    
-      <GoogleAdsense pubId={process.env.NEXT_PUBLIC_ADSENSE_PUB_ID} />
-    </>
+    <main className={`bg-[#F9F9F9] text-[#222] ${dmSansFont.className}`}>
+      <Component {...pageProps} />
+    </main>
   );
 }
