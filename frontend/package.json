@@ -18,7 +18,8 @@
     "react-countup": "^6.5.3",
     "react-datepicker": "^7.3.0",
     "react-dom": "^18",
-    "react-google-charts": "^4.0.1"
+    "react-google-charts": "^4.0.1",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "postcss": "^8",

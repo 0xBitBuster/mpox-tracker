@@ -23,6 +23,7 @@ import SolidSvg from "@/components/SolidSvg";
 import Footer from "@/components/Footer";
 import Faq from "@/components/Faq";
 import "react-datepicker/dist/react-datepicker.css";
+import { formatRelativeDate } from "@/helpers/date";
 
 ChartJS.register(
   CategoryScale,
@@ -89,7 +90,7 @@ const chartOptions = {
 };
 
 export default function Home({ ranking, worldStatistics }) {
-  const [statisticsLoading, setStatisticsLoading] = useState(true)
+  const [statisticsLoading, setStatisticsLoading] = useState(false)
   const [statisticsType, setStatisticsType] = useState("chart")
   const [selectedCountries, setSelectedCountries] = useState(["World"])
   const [cachedStatistics, setCachedStatistics] = useState(worldStatistics)
@@ -100,6 +101,7 @@ export default function Home({ ranking, worldStatistics }) {
   const [sortedRanking, setSortedRanking] = useState([...ranking.sort((a, b) => b.total_cases - a.total_cases)])
   const [selectedCardStatistic, setSelectedCardStatistic] = useState("cases")
   const [cardStatistics, setCardStatistics] = useState({
+    date: 0,
     today_cases: 0,
     total_cases: 0,
     today_deaths: 0,
@@ -182,6 +184,7 @@ export default function Home({ ranking, worldStatistics }) {
   const refreshCardStatistics = () => {
     if (selectedCountries.includes("World")) {
       setCardStatistics({
+        date: cachedStatistics["World"]?.at(-1)?.date,
         today_cases: cachedStatistics["World"]?.at(-1)?.new_cases || 0,
         total_cases: cachedStatistics["World"]?.at(-1)?.total_cases || 0,
         today_deaths: cachedStatistics["World"]?.at(-1)?.new_deaths || 0,
@@ -193,6 +196,7 @@ export default function Home({ ranking, worldStatistics }) {
 
     // Sum up all selected country statistics
     const selectedCountriesCardStatistics = {
+      date: cachedStatistics["World"]?.at(-1)?.date, // As a date provide "world" as it is the most up to date
       today_cases: 0,
       total_cases: 0,
       today_deaths: 0,
@@ -270,7 +274,6 @@ export default function Home({ ranking, worldStatistics }) {
     // Check if everything loaded
     if (statisticsLoading || selectedCountries.some(country => !cachedStatistics[country]))
       return;
-
     
     setTableData(selectedCountries.map(country => {
       // Find entries matching the date (time exclusive)
@@ -365,7 +368,7 @@ export default function Home({ ranking, worldStatistics }) {
                 )}
 
                 <div className="px-4 py-3">
-                  <h4 className="text-gray-600 mb-1">Confirmed Cases (today)</h4>
+                  <h4 className="text-gray-600 mb-1">Confirmed Cases ({formatRelativeDate(cardStatistics.date)})</h4>
                   <h3 className="font-medium text-2xl text-red-600 mb-2">
                     <CountUp 
                       end={cardStatistics.today_cases} 
@@ -389,7 +392,7 @@ export default function Home({ ranking, worldStatistics }) {
                 )}
 
                 <div className="px-4 py-3">
-                  <h4 className="text-gray-600 mb-1">Confirmed Deaths (today)</h4>
+                  <h4 className="text-gray-600 mb-1">Confirmed Deaths ({formatRelativeDate(cardStatistics.date)})</h4>
                   <h3 className="font-medium text-2xl text-gray-600 mb-2">
                     <CountUp 
                       end={cardStatistics.today_deaths} 
