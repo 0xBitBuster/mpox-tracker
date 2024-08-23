@@ -329,7 +329,6 @@ export default function Home({ ranking, worldStatistics }) {
   }
 
   useEffect(() => {
-    console.log(worldStatistics)
     fetchStatistics(selectedCountries)
   }, [selectedCountries])
 
