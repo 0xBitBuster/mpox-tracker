@@ -1,0 +1,27 @@
+{
+    "name": "mpox-tracker-backend",
+    "version": "1.0.0",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "nodemon server.js --legacy-watch"
+    },
+    "author": "0xBitBuster",
+    "dependencies": {
+        "axios": "^1.7.4",
+        "compression": "^1.7.4",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "csv-parser": "^3.0.0",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "helmet": "^6.0.1",
+        "hpp": "^0.2.3",
+        "morgan": "^1.10.0",
+        "node-cron": "^3.0.3",
+        "xss-clean": "^0.1.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.22"
+    }
+}

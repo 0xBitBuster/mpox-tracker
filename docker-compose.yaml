@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/usr/src/app/
+      - /usr/src/app/node_modules
+    ports:
+      - "127.0.0.1:4000:4000"
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - WEBSITE_URL=https://mpoxvirus.info
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/usr/src/app/
+      - /usr/src/app/node_modules
+    ports:
+      - "127.0.0.1:3000:3000"
+    restart: always
+
+  nginx-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
