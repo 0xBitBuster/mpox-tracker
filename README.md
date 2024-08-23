@@ -25,11 +25,11 @@ git clone https://github.com/0xBitBuster/mpox-tracker.git
 ### Usage
 To start the server in development mode, run:
 ```bash
-docker-compose -f docker-compose.dev.yaml up --build
+docker compose -f docker-compose.dev.yaml up --build
 ```
 To run the server in production mode, run:
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 * In development, the server runs on following ports: `3000` (frontend) and `4000` (backend)
