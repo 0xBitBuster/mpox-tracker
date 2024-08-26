@@ -39,7 +39,9 @@ const fetchMonkeypoxData = async () => {
 	
 		await fs.promises.mkdir(tempDir, { recursive: true });
 		await fs.promises.writeFile(filePath, jsonData);
-	} catch (_) {}
+	} catch (err) {
+    console.error("Something went wrong while trying to fetch the latest monkeypox data: ", err)
+  }
 };
 
 module.exports = {

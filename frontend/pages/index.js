@@ -354,7 +354,7 @@ export default function Home({ ranking, worldStatistics }) {
 			/>
 
       <main className="container mx-auto min-h-screen">
-        <div className="flex flex-col lg:flex-row h-full lg:max-h-[68vh] py-5 px-4 gap-8 mb-8">
+        <div className="flex flex-col lg:flex-row py-5 px-4 gap-8 mb-8">
           <div className="flex flex-col lg:w-[80%]">
             <div className="flex justify-between mb-8">
               <h1 className="text-3xl font-bold">Mpox statistics</h1>
@@ -426,7 +426,7 @@ export default function Home({ ranking, worldStatistics }) {
                 </button>
               </div>
               
-              <div ref={statisticsContainerRef} className="flex flex-col justify-between overflow-hidden relative flex-1 p-4">
+              <div ref={statisticsContainerRef} className="flex flex-col justify-between relative flex-1 p-4">
                 {statisticsType === "chart" ? (
                   <Line
                     className="mb-4"
@@ -525,7 +525,7 @@ export default function Home({ ranking, worldStatistics }) {
             </div>
           </div>
 
-          <div className="relative   max-h-[500px] lg:max-h-none lg:w-[20%] border bg-white rounded-md px-4 pt-3 overflow-y-auto styled-scrollbar">
+          <div className="relative max-h-[500px] lg:max-h-[95vh] lg:w-[20%] border bg-white rounded-md px-4 pt-3 overflow-y-auto styled-scrollbar">
             <h3 className="font-semibold mb-3">{capitalizeFirstLetter(selectedCardStatistic)} by countries</h3>
             <div className="space-y-1 text-sm">
               {sortedRanking.length === 0 && (
@@ -576,8 +576,8 @@ export async function getStaticProps() {
    
     return {
       props: {
-        ranking: rankingData.statistics,
-        worldStatistics: worldStatisticsData.statistics
+        ranking: rankingData.statistics || {},
+        worldStatistics: worldStatisticsData.statistics || {}
       },
       revalidate: 300, // 5 minutes
     }
